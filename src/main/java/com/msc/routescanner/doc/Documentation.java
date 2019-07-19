@@ -70,7 +70,7 @@ public class Documentation {
             fmc.putMap(map);
             String result = fmc.template();
             if (this.docConfig.useHtmlFile()) {
-                FileWriter fw = new FileWriter(this.docConfig.getHtmlFile());
+                FileWriter fw = new FileWriter(this.docConfig.getHtmlOutputFile());
                 fw.write(result);
                 fw.flush();
                 fw.close();

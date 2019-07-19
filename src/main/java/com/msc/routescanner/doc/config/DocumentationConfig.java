@@ -1,6 +1,7 @@
 package com.msc.routescanner.doc.config;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,11 +30,18 @@ public class DocumentationConfig {
         this.packages = packages;
     }
 
-    public File getHtmlFile() {
+    public void addPackage(String pkg){
+        if (this.packages == null){
+            this.packages = new ArrayList<>();
+        }
+        this.packages.add(pkg);
+    }
+
+    public File getHtmlOutputFile() {
         return htmlFile;
     }
 
-    public void setHtmlFile(File htmlFile) {
+    public void setHtmlOutputFile(File htmlFile) {
         this.htmlFile = htmlFile;
     }
 
