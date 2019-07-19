@@ -9,10 +9,25 @@ import java.util.List;
  */
 public class Route {
 
+    /**
+     * GET, POST, Etc...
+     */
     private String method;
+    /**
+     * /foo/bar
+     */
     private String route;
+    /**
+     * Response's Type
+     */
     private String response;
+    /**
+     * The arguments
+     */
     private List<String> inputs;
+    /**
+     * first call ?
+     */
     private boolean isHead = false;
     private List<String> consumes;
     private List<String> produces;

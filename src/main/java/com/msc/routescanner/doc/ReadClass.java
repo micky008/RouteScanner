@@ -35,13 +35,16 @@ class ReadClass {
         Path p = (Path) clazz.getAnnotation(Path.class);
 
         Route route = new Route();
-        route.setRoute(p.value());
+        route.setRoute(p != null ? p.value() : "");
         route.setIsHead(true);
         route.setResponse(this.clazz.getSimpleName());
         routes.add(route);
 
         Method ms[] = clazz.getDeclaredMethods();
         for (Method m : ms) {
+            if (!haveMethod(m)) {
+                continue;
+            }
             route = new Route();
             for (Annotation a : m.getAnnotations()) {
                 if (putMethod(a, route)) {
@@ -61,6 +64,13 @@ class ReadClass {
         }
 
         return routes;
+    }
+
+    private boolean haveMethod(Method m) {
+        return m.isAnnotationPresent(GET.class)
+                || m.isAnnotationPresent(POST.class)
+                || m.isAnnotationPresent(PUT.class)
+                || m.isAnnotationPresent(DELETE.class);
     }
 
     private boolean putMethod(Annotation a, Route r) {
@@ -117,16 +127,19 @@ class ReadClass {
         if (m.getParameters().length == 0) {
             return;
         }
-        if (r.getInputs() == null) {
-            r.setInputs(new ArrayList<String>());
-        }
         for (Parameter p : m.getParameters()) {
+            if (!p.isAnnotationPresent(PathParam.class) && p.getAnnotations().length > 0) {
+                continue;
+            }
             String input = recursMethode(p.getType().getSimpleName(), p.getParameterizedType());
             for (Annotation a : p.getAnnotations()) {
                 if (a.annotationType() == PathParam.class) {
                     PathParam pp = p.getAnnotation(PathParam.class);
                     input += " " + pp.value();
                 }
+            }
+            if (r.getInputs() == null) {
+                r.setInputs(new ArrayList<>());
             }
             r.getInputs().add(input);
         }

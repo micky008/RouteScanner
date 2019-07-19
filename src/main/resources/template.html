@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style type="text/css">
+            div {
+                border: 1px red solid
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2">
+                    <ul>
+                        <#list myMap?keys as mapKey>
+                        <li><a href="#${mapKey}">${mapKey}</a></li>
+                        </#list>
+                    </ul>
+                </div>
+                <div class="col">
+                    <#list myMap as myMapKey, myMapValue>
+                        <h2 id="${myMapKey}" >${myMapKey}</h2>
+                        <#list myMapValue as route>
+                            <#if route.isHead>
+                                <#continue>
+                            </#if>
+                        <p>
+                            <#if route.produces??>
+                                <span>Produce : <#list route.produces as prod>${prod}<#sep>, </#list></span><br/>
+                            </#if>
+                            <#if route.consumes??>
+                                <span>Consume : <#list route.consumes as cons>${cons}<#sep>, </#list></span><br/>
+                            </#if>
+                            <span>${route.method} ${(route.response?replace('<','&lt;'))?replace('>','&gt;')} <#if route.route??>${route.route}</#if></span><br/>
+                            <span><#if route.inputs??>Args: <#list route.inputs as input>${(input?replace('<','&lt;'))?replace('>','&gt;')}<#sep>,</#list></#if></span>
+                        </p>
+                        </#list>
+                    </#list>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+

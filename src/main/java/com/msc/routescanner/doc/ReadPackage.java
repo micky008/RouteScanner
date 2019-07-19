@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author https://stackoverflow.com/a/20358207
  */
-public class ReadPackage {
+class ReadPackage {
 
     private final static char DOT = '.';
     private final static char SLASH = '/';

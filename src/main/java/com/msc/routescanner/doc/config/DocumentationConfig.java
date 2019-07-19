@@ -1,4 +1,4 @@
-package com.msc.routescanner.doc;
+package com.msc.routescanner.doc.config;
 
 import java.io.File;
 import java.util.List;

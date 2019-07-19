@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.msc.routescanner.doc;
+package com.msc.routescanner.doc.exception;
 
 /**
  *
